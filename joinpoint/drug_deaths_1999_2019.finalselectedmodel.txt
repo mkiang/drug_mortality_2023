@@ -1,0 +1,51 @@
+"state";"Model"
+Alabama;3
+Alaska;0
+Arizona;1
+Arkansas;1
+California;0
+Colorado;1
+Connecticut;2
+Delaware;1
+District of Columbia;1
+Florida;3
+Georgia;3
+Hawaii;0
+Idaho;3
+Illinois;2
+Indiana;3
+Iowa;1
+Kansas;1
+Kentucky;2
+Louisiana;2
+Maine;3
+Maryland;2
+Massachusetts;3
+Michigan;3
+Minnesota;1
+Mississippi;1
+Missouri;1
+Montana;2
+Nebraska;1
+Nevada;1
+New Hampshire;3
+New Jersey;1
+New Mexico;1
+New York;0
+North Carolina;3
+Ohio;2
+Oklahoma;1
+Oregon;1
+Pennsylvania;2
+Rhode Island;0
+South Carolina;2
+Tennessee;2
+Texas;1
+Utah;2
+Vermont;1
+Virginia;2
+Washington;2
+West Virginia;0
+Wisconsin;3
+Wyoming;1
+US;3

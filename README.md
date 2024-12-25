@@ -1,0 +1,162 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+## Recent drug overdose mortality decline compared to pre-COVID trend
+
+<img src="./plots/figS1_fitted_vs_observed_with_ci.jpg" width="750px" style="display: block; margin: auto;" />
+
+This repository,
+[`drug_mortality_2023`](https://github.com/mkiang/drug_mortality_2023),
+contains reproducible code and data for our open-access *JAMA Network
+Open* research letter, [“Recent drug overdose mortality decline compared
+to pre-COVID trend”](TODO), which uses publicly-available [drug
+mortality data from CDC WONDER](https://wonder.cdc.gov) to fit
+[joinpoint regressions](https://surveillance.cancer.gov/joinpoint/) to
+pre-2020 trends. We then compare the predicted mortality (based on the
+state-specific joinpoint trends) to the observed mortality.
+
+The full citation is:
+
+> Kiang MV, Humphreys K. Recent drug overdose mortality decline compared
+> to pre-COVID trend. *JAMA Network Open*.
+
+## About this repository
+
+All code can be found in the `./code` folder and must be run in order.
+The first few lines of each code file contains a brief description of
+the tasks related to that file.
+
+To fit the joinpoint regressions, you must use the [NCI Joinpoint
+Regression Program](https://surveillance.cancer.gov/joinpoint/). We save
+the joinpoint session file and output file in `./joinpoint`. (This
+should be done after running the `01` script but before the `02`
+script.)
+
+All figures are in `./plots` and the numeric representation of the
+figures can be found in the `./output` folder.
+
+## Authors (alphabetical)
+
+- [Keith Humphreys](https://profiles.stanford.edu/keith-humphreys)
+- [Mathew V Kiang](https://mathewkiang.com)
+  (![Github](http://i.imgur.com/9I6NRUm.png):
+  [mkiang](https://github.com/mkiang))
+
+## Notes on Reproducibility
+
+We use [`renv`](https://rstudio.github.io/renv/index.html) for package
+management but below we also post the relevant session information to
+ensure full reproducibility.
+
+``` r
+> sessioninfo::session_info()
+─ Session info ───────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.4.1 (2024-06-14)
+ os       macOS 15.2
+ system   aarch64, darwin20
+ ui       RStudio
+ language (EN)
+ collate  en_US.UTF-8
+ ctype    en_US.UTF-8
+ tz       America/Los_Angeles
+ date     2024-12-24
+ rstudio  2024.12.0+467 Kousa Dogwood (desktop)
+ pandoc   3.2 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown)
+
+─ Packages ───────────────────────────────────────────────────────────────
+ package       * version date (UTC) lib source
+ askpass         1.2.0   2023-09-03 [1] CRAN (R 4.4.0)
+ class           7.3-22  2023-05-03 [1] CRAN (R 4.4.1)
+ classInt        0.4-10  2023-09-05 [1] CRAN (R 4.4.0)
+ cli             3.6.3   2024-06-21 [1] CRAN (R 4.4.0)
+ codetools       0.2-20  2024-03-31 [1] CRAN (R 4.4.1)
+ colorspace      2.1-1   2024-07-26 [1] CRAN (R 4.4.0)
+ crayon          1.5.3   2024-06-20 [1] CRAN (R 4.4.0)
+ credentials     2.0.1   2023-09-06 [1] CRAN (R 4.4.0)
+ curl            5.2.2   2024-08-26 [1] CRAN (R 4.4.1)
+ DBI             1.2.3   2024-06-02 [1] CRAN (R 4.4.0)
+ digest          0.6.37  2024-08-19 [1] CRAN (R 4.4.1)
+ dplyr         * 1.1.4   2023-11-17 [1] CRAN (R 4.4.0)
+ e1071           1.7-16  2024-09-16 [1] CRAN (R 4.4.1)
+ evaluate        1.0.0   2024-09-17 [1] CRAN (R 4.4.1)
+ fansi           1.0.6   2023-12-08 [1] CRAN (R 4.4.0)
+ farver          2.1.2   2024-05-13 [1] CRAN (R 4.4.0)
+ fastmap         1.2.0   2024-05-15 [1] CRAN (R 4.4.0)
+ forcats       * 1.0.0   2023-01-29 [1] CRAN (R 4.4.0)
+ fs              1.6.4   2024-04-25 [1] CRAN (R 4.4.0)
+ generics        0.1.3   2022-07-05 [1] CRAN (R 4.4.0)
+ geofacet      * 0.2.1   2023-11-30 [1] CRAN (R 4.4.0)
+ geogrid         0.1.2   2023-08-19 [1] CRAN (R 4.4.0)
+ gert            2.1.1   2024-08-16 [1] CRAN (R 4.4.0)
+ ggplot2       * 3.5.1   2024-04-23 [1] CRAN (R 4.4.0)
+ ggrepel         0.9.6   2024-09-07 [1] CRAN (R 4.4.1)
+ ggsci         * 3.2.0   2024-06-18 [1] CRAN (R 4.4.0)
+ gh              1.4.1   2024-03-28 [1] CRAN (R 4.4.0)
+ gitcreds        0.1.2   2022-09-08 [1] CRAN (R 4.4.0)
+ glue            1.7.0   2024-01-09 [1] CRAN (R 4.4.0)
+ gridExtra       2.3     2017-09-09 [1] CRAN (R 4.4.0)
+ gtable          0.3.5   2024-04-22 [1] CRAN (R 4.4.0)
+ here          * 1.0.1   2020-12-13 [1] CRAN (R 4.4.0)
+ hms             1.1.3   2023-03-21 [1] CRAN (R 4.4.0)
+ htmltools       0.5.8.1 2024-04-04 [1] CRAN (R 4.4.0)
+ httr            1.4.7   2023-08-15 [1] CRAN (R 4.4.0)
+ httr2           1.0.4   2024-09-13 [1] CRAN (R 4.4.1)
+ imguR           1.0.3   2016-03-29 [1] CRAN (R 4.4.0)
+ jpeg            0.1-10  2022-11-29 [1] CRAN (R 4.4.0)
+ jsonlite        1.8.8   2023-12-04 [1] CRAN (R 4.4.0)
+ KernSmooth      2.23-24 2024-05-17 [1] CRAN (R 4.4.1)
+ knitr           1.48    2024-07-07 [1] CRAN (R 4.4.0)
+ labeling        0.4.3   2023-08-29 [1] CRAN (R 4.4.0)
+ lattice         0.22-6  2024-03-20 [1] CRAN (R 4.4.1)
+ lifecycle       1.0.4   2023-11-07 [1] CRAN (R 4.4.0)
+ lubridate     * 1.9.3   2023-09-27 [1] CRAN (R 4.4.0)
+ magrittr        2.0.3   2022-03-30 [1] CRAN (R 4.4.0)
+ munsell         0.5.1   2024-04-01 [1] CRAN (R 4.4.0)
+ openssl         2.2.1   2024-08-16 [1] CRAN (R 4.4.0)
+ pillar          1.9.0   2023-03-22 [1] CRAN (R 4.4.0)
+ pkgconfig       2.0.3   2019-09-22 [1] CRAN (R 4.4.0)
+ png             0.1-8   2022-11-29 [1] CRAN (R 4.4.0)
+ proxy           0.4-27  2022-06-09 [1] CRAN (R 4.4.0)
+ purrr         * 1.0.2   2023-08-10 [1] CRAN (R 4.4.0)
+ R6              2.5.1   2021-08-19 [1] CRAN (R 4.4.0)
+ ragg            1.3.3   2024-09-11 [1] CRAN (R 4.4.1)
+ rappdirs        0.3.3   2021-01-31 [1] CRAN (R 4.4.0)
+ Rcpp            1.0.13  2024-07-17 [1] CRAN (R 4.4.0)
+ readr         * 2.1.5   2024-01-10 [1] CRAN (R 4.4.0)
+ rlang           1.1.4   2024-06-04 [1] CRAN (R 4.4.0)
+ rmarkdown       2.28    2024-08-17 [1] CRAN (R 4.4.0)
+ rnaturalearth   1.0.1   2023-12-15 [1] CRAN (R 4.4.0)
+ rprojroot       2.0.4   2023-11-05 [1] CRAN (R 4.4.0)
+ rstudioapi      0.16.0  2024-03-24 [1] CRAN (R 4.4.0)
+ scales          1.3.0   2023-11-28 [1] CRAN (R 4.4.0)
+ sessioninfo     1.2.2   2021-12-06 [1] CRAN (R 4.4.0)
+ sf              1.0-17  2024-09-06 [1] CRAN (R 4.4.1)
+ sp              2.1-4   2024-04-30 [1] CRAN (R 4.4.0)
+ stringi         1.8.4   2024-05-06 [1] CRAN (R 4.4.0)
+ stringr       * 1.5.1   2023-11-14 [1] CRAN (R 4.4.0)
+ sys             3.4.2   2023-05-23 [1] CRAN (R 4.4.0)
+ systemfonts     1.1.0   2024-05-15 [1] CRAN (R 4.4.0)
+ terra           1.7-78  2024-05-22 [1] CRAN (R 4.4.0)
+ textshaping     0.4.0   2024-05-24 [1] CRAN (R 4.4.0)
+ tibble        * 3.2.1   2023-03-20 [1] CRAN (R 4.4.0)
+ tidyr         * 1.3.1   2024-01-24 [1] CRAN (R 4.4.0)
+ tidyselect      1.2.1   2024-03-11 [1] CRAN (R 4.4.0)
+ tidyverse     * 2.0.0   2023-02-22 [1] CRAN (R 4.4.0)
+ timechange      0.3.0   2024-01-18 [1] CRAN (R 4.4.0)
+ tzdb            0.4.0   2023-05-12 [1] CRAN (R 4.4.0)
+ units           0.8-5   2023-11-28 [1] CRAN (R 4.4.0)
+ usethis         3.0.0   2024-07-29 [1] CRAN (R 4.4.0)
+ usmap         * 0.7.1   2024-03-21 [1] CRAN (R 4.4.0)
+ usmapdata       0.3.0   2024-05-17 [1] CRAN (R 4.4.0)
+ utf8            1.2.4   2023-10-22 [1] CRAN (R 4.4.0)
+ vctrs           0.6.5   2023-12-01 [1] CRAN (R 4.4.0)
+ whisker         0.4.1   2022-12-05 [1] CRAN (R 4.4.0)
+ withr           3.0.1   2024-07-31 [1] CRAN (R 4.4.0)
+ xfun            0.47    2024-08-17 [1] CRAN (R 4.4.0)
+ yaml            2.3.10  2024-07-26 [1] CRAN (R 4.4.0)
+
+ [1] /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library
+
+─────────────────────────────────────────────────────────────────────────
+```

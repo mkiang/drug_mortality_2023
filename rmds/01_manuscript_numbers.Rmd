@@ -1,0 +1,107 @@
+---
+title: "Numbers for the manuscript"
+author: "Mathew Kiang"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(error = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(here)
+library(knitr)
+
+## Data ----
+death_df <- readRDS(here("data", "joinpoint_results.RDS")) |> 
+    filter(state != "US",
+           state != "North Dakota",
+           state != "South Dakota")
+
+```
+
+## Which states had higher than expected rates in all four years (2020-2023)?
+
+```{r}
+gt_df <- death_df |>
+    filter(year >= 2020) |>
+    group_by(state) |>
+    summarize(n_gt_expected = sum(adj_rate > model_rate_upper)) |>
+    arrange(desc(n_gt_expected), state)
+
+gt_df |>
+    kable()
+```
+
+```{r}
+gt_df |> 
+    group_by(n_gt_expected) |>
+    summarize(n = n()) |> 
+    ungroup() |> 
+    mutate(prop = n / sum(n)) |>
+    arrange(desc(n_gt_expected)) |> 
+    kable()
+```
+
+## Which states were consistently below their pre-2020 trajectories?
+
+```{r}
+lt_df <- death_df |>
+    filter(year >= 2020) |>
+    group_by(state) |>
+    summarize(n_lt_expected = sum(adj_rate < model_rate_lower)) |>
+    arrange(desc(n_lt_expected), state)
+
+lt_df |>
+    kable()
+```
+
+
+
+## Were the observed rates higher than the predicted rates in 2020 through 2023?
+
+```{r}
+observed <- death_df |>
+    filter(year >= 2020) |>
+    pull(adj_rate)
+
+predicted <- death_df |>
+    filter(year >= 2020) |>
+    pull(model_rate)
+
+wilcox.test(
+    x = predicted,
+    y = observed,
+    alternative = "two.sided",
+    paired = TRUE
+)
+```
+
+## Confirm that the modeled rates and the observed rates are *not* statistically different
+
+Because it would be super weird if they were:
+
+```{r}
+observed <- death_df |>
+    filter(year < 2020) |>
+    pull(adj_rate)
+
+predicted <- death_df |>
+    filter(year < 2020) |>
+    pull(model_rate)
+
+wilcox.test(
+    x = predicted,
+    y = observed,
+    alternative = "two.sided",
+    paired = TRUE
+)
+```
+
