@@ -4,19 +4,19 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## Recent drug overdose mortality decline compared to pre-COVID trend
+## Recent drug overdose mortality decline compared to pre-COVID trends
 
 <img src="./plots/figS1_fitted_vs_observed_with_ci.jpg" width="750px" style="display: block; margin: auto;" />
 
 This repository,
 [`drug_mortality_2023`](https://github.com/mkiang/drug_mortality_2023),
 contains reproducible code and data for our open-access *JAMA Network Open*
-research letter, [“Recent drug overdose mortality decline compared to pre-COVID trend”](TODO),
+research letter, [“Recent drug overdose mortality decline compared to pre-COVID trends”](TODO),
 which uses publicly-available [drug mortality data from CDC WONDER](https://wonder.cdc.gov) to fit [joinpoint regressions](https://surveillance.cancer.gov/joinpoint/) to pre-2020 trends. We then compare the predicted mortality (based on the state-specific joinpoint trends) to the observed mortality. 
 
 The full citation is:
 
-> Kiang MV, Humphreys K. Recent drug overdose mortality decline compared to pre-COVID trend. *JAMA Network Open*.
+> Kiang MV, Humphreys K. Recent drug overdose mortality decline compared to pre-COVID trends. *JAMA Network Open*.
 
 ## About this repository
 
@@ -24,12 +24,13 @@ All code can be found in the `./code` folder and must be run in order.
 The first few lines of each code file contains a brief description of
 the tasks related to that file. 
 
+Note that after running the `01` file, you must use an the [NCI Joinpoint Regression Program](https://surveillance.cancer.gov/joinpoint/) (outside of R) to fit the models and export the results. Then run the `02` file to import and save the results. 
+
 To fit the joinpoint regressions, you must
-use the [NCI Joinpoint Regression Program](https://surveillance.cancer.gov/joinpoint/). We save the joinpoint session file and output file in `./joinpoint`. (This should be done after running the `01` script but before the `02` script.)
+use the [NCI Joinpoint Regression Program](https://surveillance.cancer.gov/joinpoint/) and then save the results. This should be done after running the `01` script but before the `02` script. (We save the joinpoint session file and output file we used in `./joinpoint`.)
 
 All figures are in `./plots` and the numeric representation of the figures
 can be found in the `./output` folder. 
-
 
 ## Authors (alphabetical)
 

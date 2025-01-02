@@ -1,17 +1,17 @@
 ## 02_gather_joinpoint_results.R ----
-## 
+##
 ## After running the joinpoint regressions (see ./joinpoint), this file will
-## take the exported text results and convert them into a unified dataframe. 
+## take the exported text results and convert them into a unified dataframe.
 
 ## Imports ----
 library(tidyverse)
 library(here)
 
 ## Data ----
-death_df <- readRDS(here("data", "drug_deaths_1999_2023.RDS"))
+death_df <- readRDS(here::here("data", "drug_deaths_1999_2023.RDS"))
 
-apc_df <-  read_delim(
-    here("joinpoint", "drug_deaths_1999_2019.apc.txt"),
+apc_df <-  readr::read_delim(
+    here::here("joinpoint", "drug_deaths_1999_2019.apc.txt"),
     delim = ";",
     skip = 1,
     col_names = c(
@@ -19,7 +19,7 @@ apc_df <-  read_delim(
         "remove1",
         "remove2",
         "year",
-        "remove3", 
+        "remove3",
         "apc",
         "apc_lower",
         "apc_upper",
@@ -27,11 +27,11 @@ apc_df <-  read_delim(
         "remove5",
         "remove6"
     )
-) |> 
-    select(-starts_with("remove"))
+) |>
+    dplyr::select(-dplyr::starts_with("remove"))
 
-jp_df <- read_delim(
-    here("joinpoint", "drug_deaths_1999_2019.data.txt"),
+jp_df <- readr::read_delim(
+    here::here("joinpoint", "drug_deaths_1999_2019.data.txt"),
     delim = ";",
     skip = 1,
     col_names = c(
@@ -45,71 +45,69 @@ jp_df <- read_delim(
         "remove2",
         "remove3"
     )
-) |> 
-    select(-starts_with("remove"))
+) |>
+    dplyr::select(-dplyr::starts_with("remove"))
 
 ## Based on joinpoint model, extrapolate 2020-2023
 extrapolated_rates <- jp_df |>
-    left_join(apc_df) |>
-    group_by(state) |>
-    fill(starts_with("apc")) |>
-    ungroup()
+    dplyr::left_join(apc_df) |>
+    dplyr::group_by(state) |>
+    tidyr::fill(dplyr::starts_with("apc")) |>
+    dplyr::ungroup()
 
 extrapolated_rates <- extrapolated_rates |>
-    filter(year == 2019) |>
-    mutate(
-        `2020` = model_rate * (1 + apc / 100) ^ 1,
-        `2021` = model_rate * (1 + apc / 100) ^ 2,
-        `2022` = model_rate * (1 + apc / 100) ^ 3,
-        `2023` = model_rate * (1 + apc / 100) ^ 4
+    dplyr::filter(year == 2019) |>
+    dplyr::mutate(
+        `2020` = model_rate * (1 + apc / 100)^1,
+        `2021` = model_rate * (1 + apc / 100)^2,
+        `2022` = model_rate * (1 + apc / 100)^3,
+        `2023` = model_rate * (1 + apc / 100)^4
     ) |>
-    select(state, `2020`, `2021`, `2022`, `2023`) |>
-    pivot_longer(`2020`:`2023`, names_to = "year", values_to = "model_rate") |>
-    mutate(year = as.integer(year)) |>
-    left_join(
+    dplyr::select(state, `2020`, `2021`, `2022`, `2023`) |>
+    tidyr::pivot_longer(`2020`:`2023`, names_to = "year", values_to = "model_rate") |>
+    dplyr::mutate(year = as.integer(year)) |>
+    dplyr::left_join(
         extrapolated_rates |>
-            filter(year == 2019) |>
-            mutate(
-                `2020` = model_rate * (1 + apc_lower / 100) ^ 1,
-                `2021` = model_rate * (1 + apc_lower / 100) ^ 2,
-                `2022` = model_rate * (1 + apc_lower / 100) ^ 3,
-                `2023` = model_rate * (1 + apc_lower / 100) ^ 4
+            dplyr::filter(year == 2019) |>
+            dplyr::mutate(
+                `2020` = model_rate * (1 + apc_lower / 100)^1,
+                `2021` = model_rate * (1 + apc_lower / 100)^2,
+                `2022` = model_rate * (1 + apc_lower / 100)^3,
+                `2023` = model_rate * (1 + apc_lower / 100)^4
             ) |>
-            select(state, `2020`, `2021`, `2022`, `2023`) |>
-            pivot_longer(`2020`:`2023`, names_to = "year", values_to = "model_rate_lower") |>
-            mutate(year = as.integer(year))
+            dplyr::select(state, `2020`, `2021`, `2022`, `2023`) |>
+            tidyr::pivot_longer(`2020`:`2023`, names_to = "year", values_to = "model_rate_lower") |>
+            dplyr::mutate(year = as.integer(year))
     ) |>
-    left_join(
+    dplyr::left_join(
         extrapolated_rates |>
-            filter(year == 2019) |>
-            mutate(
-                `2020` = model_rate * (1 + apc_upper / 100) ^ 1,
-                `2021` = model_rate * (1 + apc_upper / 100) ^ 2,
-                `2022` = model_rate * (1 + apc_upper / 100) ^ 3,
-                `2023` = model_rate * (1 + apc_upper / 100) ^ 4
+            dplyr::filter(year == 2019) |>
+            dplyr::mutate(
+                `2020` = model_rate * (1 + apc_upper / 100)^1,
+                `2021` = model_rate * (1 + apc_upper / 100)^2,
+                `2022` = model_rate * (1 + apc_upper / 100)^3,
+                `2023` = model_rate * (1 + apc_upper / 100)^4
             ) |>
-            select(state, `2020`, `2021`, `2022`, `2023`) |>
-            pivot_longer(`2020`:`2023`, names_to = "year", values_to = "model_rate_upper") |>
-            mutate(year = as.integer(year))
+            dplyr::select(state, `2020`, `2021`, `2022`, `2023`) |>
+            tidyr::pivot_longer(`2020`:`2023`, names_to = "year", values_to = "model_rate_upper") |>
+            dplyr::mutate(year = as.integer(year))
     )
 
 ## Combine with death data
 death_df <- death_df |>
-    left_join(
+    dplyr::left_join(
         jp_df |>
-            select(state, year, model_rate) |>
-            bind_rows(extrapolated_rates) |> 
-            arrange(state, year)
+            dplyr::select(state, year, model_rate) |>
+            dplyr::bind_rows(extrapolated_rates) |>
+            dplyr::arrange(state, year)
     )
 
 ## Add state abbreviations
-death_df <- death_df |> 
-    left_join(
-        tibble(
-            state = c("US", state.name, "District of Columbia"),
-            abbrev = c("US", state.abb, "DC")
-        )
-    ) 
+death_df <- death_df |>
+    dplyr::left_join(tibble::tibble(
+        state = c("US", datasets::state.name, "District of Columbia"),
+        abbrev = c("US", datasets::state.abb, "DC")
+    ))
 
 ## Save ----
-saveRDS(death_df, here("data", "joinpoint_results.RDS"))
+saveRDS(death_df, here::here("data", "joinpoint_results.RDS"))
