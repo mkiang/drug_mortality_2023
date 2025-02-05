@@ -9,16 +9,19 @@ This repository,
 [`drug_mortality_2023`](https://github.com/mkiang/drug_mortality_2023),
 contains reproducible code and data for our open-access *JAMA Network
 Open* research letter, [“Recent drug overdose mortality decline compared
-to pre-COVID trends”](TODO), which uses publicly-available [drug
-mortality data from CDC WONDER](https://wonder.cdc.gov) to fit
-[joinpoint regressions](https://surveillance.cancer.gov/joinpoint/) to
-pre-2020 trends. We then compare the predicted mortality (based on the
+to pre-COVID
+trend”](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2829860),
+which uses publicly-available [drug mortality data from CDC
+WONDER](https://wonder.cdc.gov) to fit [joinpoint
+regressions](https://surveillance.cancer.gov/joinpoint/) to pre-2020
+trends. We then compare the predicted mortality (based on the
 state-specific joinpoint trends) to the observed mortality.
 
 The full citation is:
 
 > Kiang MV, Humphreys K. Recent drug overdose mortality decline compared
-> to pre-COVID trends. *JAMA Network Open*.
+> to pre-COVID trend. *JAMA Network Open*. 2025;8(2):e2458090. doi:
+> [10.1001/jamanetworkopen.2024.58090](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2829860)
 
 ## About this repository
 
